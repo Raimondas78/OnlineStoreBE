@@ -1,11 +1,13 @@
 package org.finalproject.onlinestore.service;
 
 import org.finalproject.onlinestore.entity.Category;
+import org.finalproject.onlinestore.payload.response.ParentCategoryResponse;
 import org.finalproject.onlinestore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -17,8 +19,17 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<Category> findAll(){
-        return categoryRepository.findAll();
+    public List<ParentCategoryResponse> findAll(){
+        return categoryRepository.
+                findAll().
+                stream().
+                map(c -> ParentCategoryResponse.fromCategory(c)).
+                collect(Collectors.toList());
+    }
+
+    public List<ParentCategoryResponse> findALlParents(){
+        return categoryRepository.getParentCategories().stream().map(ParentCategoryResponse::fromCategory).
+                collect(Collectors.toList());
     }
 
 }
