@@ -2,6 +2,7 @@ package org.finalproject.onlinestore.service;
 
 import org.finalproject.onlinestore.entity.Category;
 import org.finalproject.onlinestore.payload.response.ParentCategoryResponse;
+import org.finalproject.onlinestore.payload.response.SubcategoryResponse;
 import org.finalproject.onlinestore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class CategoryService {
     public List<ParentCategoryResponse> findALlParents(){
         return categoryRepository.getParentCategories().stream().map(ParentCategoryResponse::fromCategory).
                 collect(Collectors.toList());
+    }
+
+    public List<SubcategoryResponse> findALlSubcategories(int id){
+        return categoryRepository.findAllById(id).stream().map(SubcategoryResponse::fromSubcategory).collect(Collectors.toList());
     }
 
 }

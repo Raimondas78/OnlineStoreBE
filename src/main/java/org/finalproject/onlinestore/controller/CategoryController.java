@@ -1,10 +1,10 @@
 package org.finalproject.onlinestore.controller;
-
-import org.finalproject.onlinestore.entity.Category;
 import org.finalproject.onlinestore.payload.response.ParentCategoryResponse;
+import org.finalproject.onlinestore.payload.response.SubcategoryResponse;
 import org.finalproject.onlinestore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,4 +22,8 @@ public class CategoryController {
 
     @GetMapping("/categories")
     public List<ParentCategoryResponse> getAll(){ return categoryService.findALlParents(); }
+
+    @GetMapping("/categories/{id}/subcategories")
+    public List<SubcategoryResponse> getAll(@PathVariable("id") int id){
+        return categoryService.findALlSubcategories(id); }
 }

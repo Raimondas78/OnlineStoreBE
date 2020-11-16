@@ -15,10 +15,13 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 
     @Override
     List<Category> findAll();
-    List<Category> findAllById(long id);
 
     @Modifying
-    @Query("FROM Category WHERE parent_Id = 0")
+    @Query("FROM Category WHERE parent_Id = ?1")
+    List<Category> findAllById(int id);
+
+    @Modifying
+    @Query("FROM Category WHERE parent_Id = null")
     List<Category> getParentCategories();
 
 
