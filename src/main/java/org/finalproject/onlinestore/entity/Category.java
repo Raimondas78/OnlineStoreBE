@@ -1,6 +1,7 @@
 package org.finalproject.onlinestore.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,8 +10,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @NotBlank
+    @NotNull
     private String name;
 
     @OneToMany(mappedBy = "parentCategory", orphanRemoval = true)
@@ -30,30 +30,18 @@ public class Category {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Set<Category> getSubCategories() {
         return subCategories;
-    }
-
-    public Category getParentCategory() {
-        return parentCategory;
     }
 
     public int getId() {
         return id;
     }
 
-
-
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", parentCategory=" + parentCategory +
-                '}';
+                ", name='" + name+"}";
     }
 }

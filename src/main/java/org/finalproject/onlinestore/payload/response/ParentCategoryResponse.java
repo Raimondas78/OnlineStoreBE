@@ -26,7 +26,7 @@ public class ParentCategoryResponse {
 //                        stream().
 //                        map(SubcategoryResponse::fromSubcategory).
 //                        collect(Collectors.toSet());
-        
+
         return new ParentCategoryResponse(
                 category.getId(), category.getName());
     }
