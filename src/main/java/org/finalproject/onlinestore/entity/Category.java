@@ -9,7 +9,7 @@ import java.util.Set;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @NotNull
     private String name;
 
@@ -34,7 +34,7 @@ public class Category {
         return subCategories;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

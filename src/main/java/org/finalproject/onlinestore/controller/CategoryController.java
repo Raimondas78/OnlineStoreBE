@@ -1,4 +1,7 @@
 package org.finalproject.onlinestore.controller;
+import org.finalproject.onlinestore.entity.Category;
+import org.finalproject.onlinestore.exception.NotFoundException;
+import org.finalproject.onlinestore.payload.request.CategoryUpdateRequest;
 import org.finalproject.onlinestore.payload.request.ParentCategoryCreateRequest;
 import org.finalproject.onlinestore.payload.request.SubcategoryCreateRequest;
 import org.finalproject.onlinestore.payload.response.AllCategoryResponse;
@@ -6,7 +9,9 @@ import org.finalproject.onlinestore.payload.response.ParentCategoryResponse;
 import org.finalproject.onlinestore.payload.response.SubcategoryResponse;
 import org.finalproject.onlinestore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,7 +38,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{id}")
-    public List<SubcategoryResponse> getAll(@PathVariable("id") int id) {
+    public List<SubcategoryResponse> getAll(@PathVariable("id") long id) {
         return categoryService.findALlSubcategories(id);
     }
 
@@ -45,5 +50,16 @@ public class CategoryController {
     @PostMapping("/subcategory")
     public void addSubcategory(@RequestBody @Valid SubcategoryCreateRequest subcategoryCreateRequest){
         categoryService.addSubcategory(subcategoryCreateRequest);
+    }
+
+    @PutMapping("/categories")
+    public void updateCategory(@RequestBody @Valid CategoryUpdateRequest categoryUpdateRequest){
+        categoryService.updateCategory(categoryUpdateRequest);
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public void delete(@PathVariable("id") long id){
+        Category category = categoryService.findById(id).orElseThrow(() ->new NotFoundException("id:" +id));
+        categoryService.delete(category);
     }
 }

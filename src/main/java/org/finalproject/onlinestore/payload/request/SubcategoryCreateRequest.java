@@ -2,22 +2,21 @@ package org.finalproject.onlinestore.payload.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.finalproject.onlinestore.entity.Category;
 
 import javax.validation.Valid;
 
 public class SubcategoryCreateRequest extends CategoryRequest {
 
-    private final @Valid int parentId;
+    private final @Valid long parentId;
 
     @JsonCreator
     public SubcategoryCreateRequest(@JsonProperty("name") String name,
-                                    @JsonProperty("parentId") int parentId) {
+                                    @JsonProperty("parent_id") long parentId) {
         super(name);
         this.parentId = parentId;
     }
 
-    public int getParentId() {
+    public long getParentId() {
         return parentId;
     }
 }

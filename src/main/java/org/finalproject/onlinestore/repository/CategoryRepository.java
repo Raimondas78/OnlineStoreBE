@@ -15,11 +15,21 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 
     @Modifying
     @Query("FROM Category WHERE parent_id = ?1")
-    List<Category> findAllById(int id);
+    List<Category> findAllById(long id);
 
     @Modifying
     @Query("FROM Category WHERE parent_id = null")
     List<Category> getParentCategories();
+
+    @Modifying
+    @Query("UPDATE Category SET parent_id = ?1 WHERE id = ?2")
+    void updateSubcategoryByParentId(long parentId, long id);
+
+    Category findCategoryByName(String name);
+
+    @Modifying
+    @Query("UPDATE Category SET name = ?1 WHERE id = ?2")
+    void updateCategoryInfoById(String name, long id);
 
 
 }

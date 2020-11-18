@@ -19,27 +19,16 @@ public class AllCategoryResponse {
 
     public static AllCategoryResponse allCategory(Category category) {
 
-        Set<SubcategoryResponse> subcategorySet =
-                category.getSubCategories().
-                        stream().
-                        map(SubcategoryResponse::fromSubcategory).
-                        collect(Collectors.toSet());
+//        Set<SubcategoryResponse> subcategorySet =
+//                category.getSubCategories().
+//                        stream().
+//                        map(SubcategoryResponse::fromSubcategory).
+//                        collect(Collectors.toSet());
 
         return new AllCategoryResponse(
                 category.getId(), category.getName());
     }
 
-//    public static AllCategoryResponse fromCategory(Category c) {
-//
-//        Set<SubcategoryResponse> subcategorySet =
-//                c.getSubCategories().
-//                        stream().
-//                        map(SubcategoryResponse::fromSubcategory).
-//                        collect(Collectors.toSet());
-//
-//        return new AllCategoryResponse(
-//                c.getId(), c.getName(), subcategorySet);
-//    }
 
     public long getId() {
         return id;

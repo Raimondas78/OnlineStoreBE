@@ -6,11 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ParentCategoryCreateRequest extends CategoryRequest {
 
-
-        @JsonCreator
-        public ParentCategoryCreateRequest(@JsonProperty("name") String name) {
-            super(name);
-        }
-
+    @JsonCreator
+    public ParentCategoryCreateRequest(@JsonProperty("name") String name) {
+        super(name);
+    }
 
 }
