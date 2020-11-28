@@ -44,6 +44,9 @@ public class CategoryService {
         List<Category> categoryList = categoryRepository.getParentCategories();
         Category category = findParentFromTheList(categoryList, id);
         List<SubcategoryResponse> subcategoryList = findALlSubcategories(id);
+        for (SubcategoryResponse s: subcategoryList){
+            System.out.println(s.getId() + " " + s.getName());
+        }
         return new ParentCategoryResponse(category.getId(), category.getName(), subcategoryList);
     }
 
@@ -56,6 +59,7 @@ public class CategoryService {
                 break;
             }
         }
+        System.out.println(categoryList.get(j));
         return categoryList.get(j);
     }
 

@@ -1,5 +1,6 @@
 package org.finalproject.onlinestore.payload.response;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.finalproject.onlinestore.entity.Category;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class ParentCategoryResponse {
     private final String name;
     private static final List<SubcategoryResponse> subcategoryList = new ArrayList<>();
 
+    @JsonCreator
     public ParentCategoryResponse(long id, String name, List<SubcategoryResponse> subcategoryList) {
         this.id = id;
         this.name = name;
