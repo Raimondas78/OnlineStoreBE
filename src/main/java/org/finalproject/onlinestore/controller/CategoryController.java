@@ -38,7 +38,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{id}")
-    public List<SubcategoryResponse> getAll(@PathVariable("id") long id) {
+    public List<SubcategoryResponse> getAllSubcategories(@PathVariable("id") long id) {
         return categoryService.findALlSubcategories(id);
     }
 
