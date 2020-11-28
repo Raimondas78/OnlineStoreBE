@@ -37,6 +37,11 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
+    @GetMapping("/parentcategory/{id}")
+    public ParentCategoryResponse getParentById(@PathVariable("id") Long id) {
+        return categoryService.getParentById(id);
+    }
+
     @GetMapping("/categories/{id}")
     public List<SubcategoryResponse> getAllSubcategories(@PathVariable("id") long id) {
         return categoryService.findALlSubcategories(id);

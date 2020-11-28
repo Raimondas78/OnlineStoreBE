@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,11 +40,32 @@ public class CategoryService {
                 collect(Collectors.toList());
     }
 
+    public ParentCategoryResponse getParentById (Long id) {
+        List<Category> categoryList = categoryRepository.getParentCategories();
+        Category category = findParentFromTheList(categoryList, id);
+        List<SubcategoryResponse> subcategoryList = findALlSubcategories(id);
+        return new ParentCategoryResponse(category.getId(), category.getName(), subcategoryList);
+    }
+
+    public Category findParentFromTheList (List<Category> categoryList, long id){
+        int j = 0;
+        Iterator i = categoryList.iterator();
+        while(i.hasNext()){
+            if(categoryList.get(j).getId()==id){
+                System.out.println("cia yra j" + j);
+                break;
+            }
+        }
+        return categoryList.get(j);
+    }
+
     public List<SubcategoryResponse> findALlSubcategories(long id) {
         return categoryRepository.findAllById(id).stream().
                 map(SubcategoryResponse::fromSubcategory).
                 collect(Collectors.toList());
     }
+
+
     @Transactional
     public void addParentCategory(ParentCategoryCreateRequest parentCategoryCreateRequest) {
         Category parentCategory = parentCategoryCreateRequest.asCategory();
