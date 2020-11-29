@@ -12,6 +12,7 @@ In _application.properties_ file you need to input your own
 database user and password:
 
 _spring.datasource.username=****_
+
 _spring.datasource.password=****_
 
 as in this file you will find asterisks instead of actual values.
