@@ -27,6 +27,8 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 
     Category findCategoryByName(String name);
 
+
+
     @Modifying
     @Query("UPDATE Category SET name = ?1 WHERE id = ?2")
     void updateCategoryInfoById(String name, long id);

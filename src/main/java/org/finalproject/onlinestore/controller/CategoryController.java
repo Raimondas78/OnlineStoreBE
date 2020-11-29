@@ -6,6 +6,7 @@ import org.finalproject.onlinestore.payload.request.ParentCategoryCreateRequest;
 import org.finalproject.onlinestore.payload.request.SubcategoryCreateRequest;
 import org.finalproject.onlinestore.payload.response.AllCategoryResponse;
 import org.finalproject.onlinestore.payload.response.ParentCategoryResponse;
+import org.finalproject.onlinestore.payload.response.SubcategoryPageResponse;
 import org.finalproject.onlinestore.payload.response.SubcategoryResponse;
 import org.finalproject.onlinestore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -43,7 +45,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{id}")
-    public List<SubcategoryResponse> getAllSubcategories(@PathVariable("id") long id) {
+    public List<SubcategoryPageResponse> getAllSubcategories(@PathVariable("id") long id) {
         return categoryService.findALlSubcategories(id);
     }
 

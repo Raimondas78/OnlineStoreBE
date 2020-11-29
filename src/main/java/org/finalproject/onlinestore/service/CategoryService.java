@@ -6,13 +6,13 @@ import org.finalproject.onlinestore.payload.request.CategoryUpdateRequest;
 import org.finalproject.onlinestore.payload.request.SubcategoryCreateRequest;
 import org.finalproject.onlinestore.payload.response.AllCategoryResponse;
 import org.finalproject.onlinestore.payload.response.ParentCategoryResponse;
+import org.finalproject.onlinestore.payload.response.SubcategoryPageResponse;
 import org.finalproject.onlinestore.payload.response.SubcategoryResponse;
 import org.finalproject.onlinestore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +25,7 @@ public class CategoryService {
 
     @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
+
         this.categoryRepository = categoryRepository;
     }
 
@@ -42,30 +43,31 @@ public class CategoryService {
 
     public ParentCategoryResponse getParentById (Long id) {
         List<Category> categoryList = categoryRepository.getParentCategories();
+        for ( Category c: categoryList){
+            System.out.println("id = "+c.getId() + " ; " + "name "+ c.getName());
+        }
         Category category = findParentFromTheList(categoryList, id);
-        List<SubcategoryResponse> subcategoryList = findALlSubcategories(id);
-        for (SubcategoryResponse s: subcategoryList){
+        List<SubcategoryPageResponse> subcategoryList = findALlSubcategories(id);
+        for (SubcategoryPageResponse s: subcategoryList){
             System.out.println(s.getId() + " " + s.getName());
         }
         return new ParentCategoryResponse(category.getId(), category.getName(), subcategoryList);
     }
 
     public Category findParentFromTheList (List<Category> categoryList, long id){
-        int j = 0;
-        Iterator i = categoryList.iterator();
-        while(i.hasNext()){
+        int j;
+        for( j= categoryList.size()-1; j>0;j--){
             if(categoryList.get(j).getId()==id){
-                System.out.println("cia yra j" + j);
+                System.out.println("j= " + j + "id = " + id);
                 break;
             }
         }
-        System.out.println(categoryList.get(j));
         return categoryList.get(j);
     }
 
-    public List<SubcategoryResponse> findALlSubcategories(long id) {
+    public List<SubcategoryPageResponse> findALlSubcategories(long id) {
         return categoryRepository.findAllById(id).stream().
-                map(SubcategoryResponse::fromSubcategory).
+                map(SubcategoryPageResponse::fromSubcategory).
                 collect(Collectors.toList());
     }
 

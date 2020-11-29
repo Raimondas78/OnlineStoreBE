@@ -2,7 +2,9 @@ package org.finalproject.onlinestore.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,7 +16,7 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "parentCategory", orphanRemoval = true)
-    private final Set<Category> subCategories = new HashSet<>();
+    private final List<Category> subCategories = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="parent_id")
@@ -22,15 +24,32 @@ public class Category {
 
     public Category() { }
 
+    public Category(String name, Category parentCategory) {
+        this.name = name;
+        this.parentCategory = parentCategory;
+    }
+    public Category(String name, long id) {
+        this.name = name;
+        this.id = id;
+    }
+
     public Category(String name) {
         this.name = name;
+    }
+
+    public Category getParentCategory(Category parentCategory){
+        return parentCategory;
+    }
+
+    public Category getParentCategory(){
+        return parentCategory;
     }
 
     public String getName() {
         return name;
     }
 
-    public Set<Category> getSubCategories() {
+    public List<Category> getSubCategories() {
         return subCategories;
     }
 
